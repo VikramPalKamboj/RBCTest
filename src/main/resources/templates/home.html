@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>Spring boot mysql</title>
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+		<style>
+			table, th, td {
+			   border: 1px solid black;
+			   border-spacing: 0px;
+			}
+			th, td {
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Name</th>
+					<th>Net worth type</th>
+					<th>Country</th>
+					<th>Update</th>
+					<th>Delete</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each=" task: ${task}">
+				<td th:text="${task.id}"></td>
+					<td th:text="${task.name}"></td>
+					<td th:text="${task.type}"></td>
+					<td th:text="${task.country}"></td>
+					<td><a th:href="@{/add(id=${task.id})}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+					<td><a th:href="@{/delete(id=${task.id})}">
+					<span class="glyphicon glyphicon-trash"></span></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<h2>Adding Section</h2>
+		
+			<form action="/add" method="POST" >
+				name <input type="text" id="name" name="name" /><br />
+				Type <input type="text" id="type" name="type"  /><br />
+				contry <input type="text" id="country" name="country"/><br />
+				<input type="submit" />
+			</form>
+			
+		
+		  <div th:each="sectionUpdate: ${sectionUpdate}">
+			<form action="/add" method="POST" >
+				name <input type="text" id="name" name="name" th:value="${sectionUpdate.name}"/><br />
+				Type <input type="text" id="type" name="type" th:value="${sectionUpdate.type}" /><br />
+				country <input type="text" id="country" name="country" th:value="${sectionUpdate.country}"/><br />
+				<input type="submit" />
+			</form>
+			<p th:text="${sectionUpdate.name}" />
+			</div>
+		
+		<br />
+		
+		<h2>Searching a section</h2>
+		<form action="/search" method="POST">
+			<input type="text" name="search" id="search" th:value="${search}" />
+			<input type="submit" value="Search" />
+		</form>
+		
+	</body>
+</html>
